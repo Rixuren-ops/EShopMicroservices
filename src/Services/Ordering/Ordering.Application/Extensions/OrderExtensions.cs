@@ -8,7 +8,18 @@ namespace Ordering.Application.Extensions
         public static IEnumerable<OrderDto> ToOrderDtoList(this IEnumerable<Order> orders)
         {
 
-            return orders.Select(order => new OrderDto
+            return orders.Select(order => DtoFromOrder(order));
+
+        }
+
+        public static OrderDto ToOrderDto(this Order order)
+        {
+            return DtoFromOrder(order);
+        }
+
+        private static OrderDto DtoFromOrder(Order order)
+        {
+            return new OrderDto
                 (
                     Id: order.Id.Value,
                     CustomerId: order.CustomerId.Value,
@@ -52,8 +63,7 @@ namespace Ordering.Application.Extensions
                         oi.Quantity,
                         oi.Price
                     )).ToList()
-                ));
-            
+                );
         }
     }
 }
